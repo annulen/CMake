@@ -442,9 +442,9 @@ bool cmMakefile::ExecuteCommand(const cmListFileFunction& lff,
       std::string error = "Unknown CMake command \"";
       error += lff.Name;
       error += "\".";
-      this->IssueMessage(cmake::FATAL_ERROR, error);
-      result = false;
-      cmSystemTools::SetFatalErrorOccured();
+      this->IssueMessage(cmake::WARNING, error);
+//      result = false;
+//      cmSystemTools::SetFatalErrorOccured();
       }
     }
 
