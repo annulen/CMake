@@ -27,7 +27,7 @@
 #include "cmDocumentationFormatterText.h"
 
 #if defined(CMAKE_BUILD_WITH_CMAKE)
-# include "cmGraphVizWriter.h"
+//# include "cmGraphVizWriter.h"
 # include "cmDependsFortran.h" // For -E cmake_copy_f90_mod callback.
 # include "cmVariableWatch.h"
 # include <cmsys/Terminal.h>
@@ -42,9 +42,9 @@
 // only build kdevelop generator on non-windows platforms
 // when not bootstrapping cmake
 #if !defined(_WIN32)
-# if defined(CMAKE_BUILD_WITH_CMAKE)
-#   define CMAKE_USE_KDEVELOP
-# endif
+//# if defined(CMAKE_BUILD_WITH_CMAKE)
+//#   define CMAKE_USE_KDEVELOP
+//# endif
 #endif
 
 #if defined(CMAKE_BUILD_WITH_CMAKE)
@@ -88,25 +88,25 @@
 #include "cmCallVisualStudioMacro.h"
 #endif
 
-#if !defined(CMAKE_BOOT_MINGW)
-# include "cmExtraCodeBlocksGenerator.h"
-#endif
+//#if !defined(CMAKE_BOOT_MINGW)
+//# include "cmExtraCodeBlocksGenerator.h"
+//#endif
 
-#ifdef CMAKE_USE_KDEVELOP
-# include "cmGlobalKdevelopGenerator.h"
-#endif
+//#ifdef CMAKE_USE_KDEVELOP
+//# include "cmGlobalKdevelopGenerator.h"
+//#endif
 
-#ifdef CMAKE_USE_ECLIPSE
-# include "cmExtraEclipseCDT4Generator.h"
-#endif
+//#ifdef CMAKE_USE_ECLIPSE
+//# include "cmExtraEclipseCDT4Generator.h"
+//#endif
 
 #include <stdlib.h> // required for atoi
 
 #if defined( __APPLE__ )
-#  if defined(CMAKE_BUILD_WITH_CMAKE)
-#    include "cmGlobalXCodeGenerator.h"
-#    define CMAKE_USE_XCODE 1
-#  endif
+//#  if defined(CMAKE_BUILD_WITH_CMAKE)
+//#    include "cmGlobalXCodeGenerator.h"
+//#    define CMAKE_USE_XCODE 1
+//#  endif
 #  include <sys/types.h>
 #  include <sys/time.h>
 #  include <sys/resource.h>
@@ -738,17 +738,17 @@ void cmake::SetArgs(const std::vector<std::string>& args,
       {
       // skip for now
       }
-    else if(arg.find("--graphviz=",0) == 0)
-      {
-      std::string path = arg.substr(strlen("--graphviz="));
-      path = cmSystemTools::CollapseFullPath(path.c_str());
-      cmSystemTools::ConvertToUnixSlashes(path);
-      this->GraphVizFile = path;
-      if ( this->GraphVizFile.empty() )
-        {
-        cmSystemTools::Error("No file specified for --graphviz");
-        }
-      }
+//    else if(arg.find("--graphviz=",0) == 0)
+//      {
+//      std::string path = arg.substr(strlen("--graphviz="));
+//      path = cmSystemTools::CollapseFullPath(path.c_str());
+//      cmSystemTools::ConvertToUnixSlashes(path);
+//      this->GraphVizFile = path;
+//      if ( this->GraphVizFile.empty() )
+//        {
+//        cmSystemTools::Error("No file specified for --graphviz");
+//        }
+//      }
     else if(arg.find("--debug-trycompile",0) == 0)
       {
       std::cout << "debug trycompile on\n";
@@ -1702,7 +1702,7 @@ int cmake::ExecuteCMakeCommand(std::vector<std::string>& args)
         return 0;
       }
 #endif
-
+#if 0
     // Tar files
     else if (args[1] == "tar" && args.size() > 3)
       {
@@ -1775,6 +1775,7 @@ int cmake::ExecuteCMakeCommand(std::vector<std::string>& args)
         }
       return 0;
       }
+#endif
 
 #if defined(CMAKE_BUILD_WITH_CMAKE)
     // Internal CMake Fortran module support.
@@ -1836,29 +1837,29 @@ void cmake::AddExtraGenerator(const char* name,
 
 void cmake::AddDefaultExtraGenerators()
 {
-#if defined(CMAKE_BUILD_WITH_CMAKE)
-#if defined(_WIN32) && !defined(__CYGWIN__)
-  // e.g. kdevelop4 ?
-#endif
+//#if defined(CMAKE_BUILD_WITH_CMAKE)
+//#if defined(_WIN32) && !defined(__CYGWIN__)
+//  // e.g. kdevelop4 ?
+//#endif
 
-  this->AddExtraGenerator(cmExtraCodeBlocksGenerator::GetActualName(),
-                          &cmExtraCodeBlocksGenerator::New);
+//  this->AddExtraGenerator(cmExtraCodeBlocksGenerator::GetActualName(),
+//                          &cmExtraCodeBlocksGenerator::New);
 
-#ifdef CMAKE_USE_ECLIPSE
-  this->AddExtraGenerator(cmExtraEclipseCDT4Generator::GetActualName(),
-                          &cmExtraEclipseCDT4Generator::New);
-#endif
+//#ifdef CMAKE_USE_ECLIPSE
+//  this->AddExtraGenerator(cmExtraEclipseCDT4Generator::GetActualName(),
+//                          &cmExtraEclipseCDT4Generator::New);
+//#endif
 
-#ifdef CMAKE_USE_KDEVELOP
-  this->AddExtraGenerator(cmGlobalKdevelopGenerator::GetActualName(),
-                          &cmGlobalKdevelopGenerator::New);
-  // for kdevelop also add the generator with just the name of the
-  // extra generator, since it was this way since cmake 2.2
-  this->ExtraGenerators[cmGlobalKdevelopGenerator::GetActualName()]
-                                             = &cmGlobalKdevelopGenerator::New;
-#endif
+//#ifdef CMAKE_USE_KDEVELOP
+//  this->AddExtraGenerator(cmGlobalKdevelopGenerator::GetActualName(),
+//                          &cmGlobalKdevelopGenerator::New);
+//  // for kdevelop also add the generator with just the name of the
+//  // extra generator, since it was this way since cmake 2.2
+//  this->ExtraGenerators[cmGlobalKdevelopGenerator::GetActualName()]
+//                                             = &cmGlobalKdevelopGenerator::New;
+//#endif
 
-#endif
+//#endif
 }
 
 
@@ -2332,11 +2333,11 @@ int cmake::ActualConfigure()
     {
     this->CacheManager->SaveCache(this->GetHomeOutputDirectory());
     }
-  if ( !this->GraphVizFile.empty() )
-    {
-    std::cout << "Generate graphviz: " << this->GraphVizFile << std::endl;
-    this->GenerateGraphViz(this->GraphVizFile.c_str());
-    }
+//  if ( !this->GraphVizFile.empty() )
+//    {
+//    std::cout << "Generate graphviz: " << this->GraphVizFile << std::endl;
+//    this->GenerateGraphViz(this->GraphVizFile.c_str());
+//    }
   if(cmSystemTools::GetErrorOccuredFlag())
     {
     return -1;
@@ -3058,22 +3059,22 @@ void cmake::MarkCliAsUsed(const std::string& variable)
 
 void cmake::GenerateGraphViz(const char* fileName) const
 {
-#ifdef CMAKE_BUILD_WITH_CMAKE
-  std::auto_ptr<cmGraphVizWriter> gvWriter(
-       new cmGraphVizWriter(this->GetGlobalGenerator()->GetLocalGenerators()));
+//#ifdef CMAKE_BUILD_WITH_CMAKE
+//  std::auto_ptr<cmGraphVizWriter> gvWriter(
+//       new cmGraphVizWriter(this->GetGlobalGenerator()->GetLocalGenerators()));
 
-  std::string settingsFile = this->GetHomeOutputDirectory();
-  settingsFile += "/CMakeGraphVizOptions.cmake";
-  std::string fallbackSettingsFile = this->GetHomeDirectory();
-  fallbackSettingsFile += "/CMakeGraphVizOptions.cmake";
+//  std::string settingsFile = this->GetHomeOutputDirectory();
+//  settingsFile += "/CMakeGraphVizOptions.cmake";
+//  std::string fallbackSettingsFile = this->GetHomeDirectory();
+//  fallbackSettingsFile += "/CMakeGraphVizOptions.cmake";
 
-  gvWriter->ReadSettings(settingsFile.c_str(), fallbackSettingsFile.c_str());
+//  gvWriter->ReadSettings(settingsFile.c_str(), fallbackSettingsFile.c_str());
 
-  gvWriter->WritePerTargetFiles(fileName);
-  gvWriter->WriteTargetDependersFiles(fileName);
-  gvWriter->WriteGlobalFile(fileName);
+//  gvWriter->WritePerTargetFiles(fileName);
+//  gvWriter->WriteTargetDependersFiles(fileName);
+//  gvWriter->WriteGlobalFile(fileName);
 
-#endif
+//#endif
 }
 
 

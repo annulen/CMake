@@ -26,7 +26,7 @@
 #include "cmDependsC.h"
 #ifdef CMAKE_BUILD_WITH_CMAKE
 # include "cmDependsFortran.h"
-# include "cmDependsJava.h"
+//# include "cmDependsJava.h"
 # include <cmsys/Terminal.h>
 #endif
 
@@ -1595,10 +1595,10 @@ cmLocalUnixMakefileGenerator3
       {
       scanner = new cmDependsFortran(this);
       }
-    else if(lang == "Java")
-      {
-      scanner = new cmDependsJava();
-      }
+//    else if(lang == "Java")
+//      {
+//      scanner = new cmDependsJava();
+//      }
 #endif
 
     if (scanner)

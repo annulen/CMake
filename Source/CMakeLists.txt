@@ -112,7 +112,7 @@ ENDIF(CMAKE_USE_ELF_PARSER)
 #
 SET(SRCS
   cmStandardIncludes.cxx
-  cmArchiveWrite.cxx
+  #cmArchiveWrite.cxx
   cmBootstrapCommands.cxx
   cmCacheManager.cxx
   cmCacheManager.h
@@ -146,12 +146,12 @@ SET(SRCS
   cmDependsFortranLexer.cxx
   cmDependsFortranParser.cxx
   cmDependsFortranParser.h
-  cmDependsJava.cxx
-  cmDependsJava.h
-  cmDependsJavaLexer.cxx
-  cmDependsJavaParser.cxx
-  cmDependsJavaParserHelper.cxx
-  cmDependsJavaParserHelper.h
+#  cmDependsJava.cxx
+#  cmDependsJava.h
+#  cmDependsJavaLexer.cxx
+#  cmDependsJavaParser.cxx
+#  cmDependsJavaParserHelper.cxx
+#  cmDependsJavaParserHelper.h
   cmDocumentation.cxx
   cmDocumentationFormatter.cxx
   cmDocumentationFormatterHTML.cxx
@@ -176,10 +176,10 @@ SET(SRCS
   cmExportFileGenerator.cxx
   cmExportInstallFileGenerator.h
   cmExportInstallFileGenerator.cxx
-  cmExtraCodeBlocksGenerator.cxx
-  cmExtraCodeBlocksGenerator.h
-  cmExtraEclipseCDT4Generator.cxx
-  cmExtraEclipseCDT4Generator.h
+#  cmExtraCodeBlocksGenerator.cxx
+#  cmExtraCodeBlocksGenerator.h
+#  cmExtraEclipseCDT4Generator.cxx
+#  cmExtraEclipseCDT4Generator.h
   cmFileTimeComparison.cxx
   cmFileTimeComparison.h
   cmGeneratedFileStream.cxx
@@ -190,8 +190,8 @@ SET(SRCS
   cmGlobalUnixMakefileGenerator3.cxx
   cmGlobalUnixMakefileGenerator3.h
   cmGraphAdjacencyList.h
-  cmGraphVizWriter.cxx
-  cmGraphVizWriter.h
+#  cmGraphVizWriter.cxx
+#  cmGraphVizWriter.h
   cmInstallGenerator.h
   cmInstallGenerator.cxx
   cmInstallExportGenerator.cxx
@@ -271,12 +271,12 @@ SET(SRCS
   )
 
 # Kdevelop only works on UNIX and not windows
-IF(UNIX)
+IF(BUILD_KDevelop)
   SET(SRCS ${SRCS} cmGlobalKdevelopGenerator.cxx)
-ENDIF(UNIX)
+ENDIF(BUILD_KDevelop)
 
 # Xcode only works on Apple
-IF(APPLE)
+IF(BUILD_Xcode)
   SET(SRCS ${SRCS}
     cmXCodeObject.cxx
     cmXCode21Object.cxx
@@ -284,7 +284,7 @@ IF(APPLE)
     cmGlobalXCodeGenerator.h
     cmLocalXCodeGenerator.cxx
     cmLocalXCodeGenerator.h)
-ENDIF(APPLE)
+ENDIF(BUILD_Xcode)
 
 
 IF (WIN32)
@@ -477,17 +477,17 @@ IF(APPLE)
 ENDIF(APPLE)
 
 # Build CPackLib
-ADD_LIBRARY(CPackLib ${CPACK_SRCS})
-TARGET_LINK_LIBRARIES(CPackLib CMakeLib)
+#ADD_LIBRARY(CPackLib ${CPACK_SRCS})
+#TARGET_LINK_LIBRARIES(CPackLib CMakeLib)
 
-IF(APPLE)
-  ADD_EXECUTABLE(cmakexbuild cmakexbuild.cxx)
-  TARGET_LINK_LIBRARIES(cmakexbuild CMakeLib)
-  ADD_EXECUTABLE(OSXScriptLauncher
-    CPack/OSXScriptLauncher.cxx)
-  TARGET_LINK_LIBRARIES(OSXScriptLauncher cmsys)
-  TARGET_LINK_LIBRARIES(OSXScriptLauncher "-framework CoreFoundation")
-ENDIF(APPLE)
+#IF(APPLE)
+#  ADD_EXECUTABLE(cmakexbuild cmakexbuild.cxx)
+#  TARGET_LINK_LIBRARIES(cmakexbuild CMakeLib)
+#  ADD_EXECUTABLE(OSXScriptLauncher
+#    CPack/OSXScriptLauncher.cxx)
+#  TARGET_LINK_LIBRARIES(OSXScriptLauncher cmsys)
+#  TARGET_LINK_LIBRARIES(OSXScriptLauncher "-framework CoreFoundation")
+#ENDIF(APPLE)
 
 # Build CMake executable
 ADD_EXECUTABLE(cmake cmakemain.cxx)
@@ -503,12 +503,12 @@ IF(WIN32)
 ENDIF(WIN32)
 
 # Build CTest executable
-ADD_EXECUTABLE(ctest ctest.cxx)
-TARGET_LINK_LIBRARIES(ctest CTestLib)
+#ADD_EXECUTABLE(ctest ctest.cxx)
+#TARGET_LINK_LIBRARIES(ctest CTestLib)
 
 # Build CPack executable
-ADD_EXECUTABLE(cpack CPack/cpack.cxx)
-TARGET_LINK_LIBRARIES(cpack CPackLib)
+#ADD_EXECUTABLE(cpack CPack/cpack.cxx)
+#TARGET_LINK_LIBRARIES(cpack CPackLib)
 
 # Curses GUI
 IF(BUILD_CursesDialog)
@@ -525,10 +525,10 @@ INCLUDE (${CMake_BINARY_DIR}/Source/LocalUserOptions.cmake OPTIONAL)
 INCLUDE (${CMake_SOURCE_DIR}/Source/LocalUserOptions.cmake OPTIONAL)
 
 INSTALL_TARGETS(/bin cmake)
-INSTALL_TARGETS(/bin ctest)
-INSTALL_TARGETS(/bin cpack)
-IF(APPLE)
-  INSTALL_TARGETS(/bin cmakexbuild)
-ENDIF(APPLE)
+#INSTALL_TARGETS(/bin ctest)
+#INSTALL_TARGETS(/bin cpack)
+#IF(APPLE)
+#  INSTALL_TARGETS(/bin cmakexbuild)
+#ENDIF(APPLE)
 
 INSTALL_FILES(${CMAKE_DATA_DIR}/include cmCPluginAPI.h)

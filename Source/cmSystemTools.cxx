@@ -27,7 +27,7 @@
 #include <cmsys/System.h>
 #if defined(CMAKE_BUILD_WITH_CMAKE)
 # include "cmArchiveWrite.h"
-# include <cm_libarchive.h>
+//# include <cm_libarchive.h>
 # include <cmsys/Terminal.h>
 #endif
 #include <cmsys/stl/algorithm>
@@ -1706,6 +1706,7 @@ bool cmSystemTools::IsPathToFramework(const char* path)
   return false;
 }
 
+#if 0 // NO_TAR
 bool cmSystemTools::CreateTar(const char* outFileName,
                               const std::vector<cmStdString>& files,
                               bool gzip, bool bzip2, bool verbose)
@@ -2019,6 +2020,8 @@ bool cmSystemTools::ListTar(const char* outFileName,
   return false;
 #endif
 }
+
+#endif // NO_TAR
 
 int cmSystemTools::WaitForLine(cmsysProcess* process, std::string& line,
                                double timeout,
