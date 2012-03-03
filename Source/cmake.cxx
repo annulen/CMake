@@ -2331,7 +2331,7 @@ int cmake::ActualConfigure()
   // only save the cache if there were no fatal errors
   if ( this->GetWorkingMode() == NORMAL_MODE )
     {
-    this->CacheManager->SaveCache(this->GetHomeOutputDirectory());
+//    this->CacheManager->SaveCache(this->GetHomeOutputDirectory());
     }
 //  if ( !this->GraphVizFile.empty() )
 //    {
